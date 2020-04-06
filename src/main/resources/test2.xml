@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+    <channel>
+        <language>ru</language>
+        <title>Lenta.ru : Новости</title>
+        <description>Новости, статьи, фотографии, видео. Семь дней в неделю, 24 часа в сутки.</description>
+        <link>https://lenta.ru</link>
+        <image>
+            <url>https://assets.lenta.ru/small_logo.png</url>
+            <title>Lenta.ru</title>
+            <link>https://lenta.ru</link>
+            <width>134</width>
+            <height>22</height>
+        </image>
+        <atom:link rel="self" type="application/rss+xml" href="http://lenta.ru/rss"/>
+        <item>
+            <guid>https://lenta.ru/news/2020/04/05/region/</guid>
+            <title>Названы регионы России с наибольшим числом заразившихся коронавирусом</title>
+            <link>https://lenta.ru/news/2020/04/05/region/</link>
+            <description>
+                Наиболее число заразившихся коронавирусом в России зафиксировано в Москве, Московской области и Санкт-Петербурге. В Москве зарегистрировано 3893 случая заражения, в Московской области — 305 случаев, в Петербурге — 191 случай. Еще 59 инфицированных зафиксировано в Республике Коми и 57 — в Ленинградской области.>
+            </description>
+            <pubDate>Sun, 05 Apr 2020 13:56:00 +0300</pubDate>
+            <enclosure url="https://icdn.lenta.ru/images/2020/04/05/13/20200405135636052/pic_0bebb17f9f9841aa362582fa7802b15d.jpg" type="image/jpeg" length="80684"/>
+            <category>Россия</category>
+        </item>
+        <item>
+            <guid>https://lenta.ru/news/2020/04/05/kremlin/</guid>
+            <title>В Кремле рассказали о сроках дистанционной работы Путина</title>
+            <link>https://lenta.ru/news/2020/04/05/kremlin/</link>
+            <description>
+                Президент России Владимир Путин будет работать в дистанционном режиме еще как минимум неделю. Об этом заявил пресс-секретарь главы государства Дмитрий Песков. По его словам, президент ограничил физические контакты для минимизации риска заражения коронавирусной инфекцией.>
+            </description>
+            <pubDate>Sun, 05 Apr 2020 13:49:00 +0300</pubDate>
+            <enclosure url="https://icdn.lenta.ru/images/2020/04/05/13/20200405135042580/pic_7b43621defb07acf3c1486b8578246bc.jpg" type="image/jpeg" length="77643"/>
+            <category>Россия</category>
+        </item>
+        <item>
+            <guid>https://lenta.ru/news/2020/04/05/shri/</guid>
+            <title>На Шри-Ланке освободили почти три тысячи заключенных из-за коронавируса</title>
+            <link>https://lenta.ru/news/2020/04/05/shri/</link>
+            <description>
+                Власти Шри-Ланки освободили из тюрем 2961 заключенного под залог из-за коронавируса. Были освобождены осужденные за мелкие нарушения и те, чей срок почти закончился. В настоящее время в тюрьмах Шри-Ланки содержатся более 26 тысяч человек, в то время как общая вместимость не превышает десяти тысяч. >
+            </description>
+            <pubDate>Sun, 05 Apr 2020 13:42:00 +0300</pubDate>
+            <enclosure url="https://icdn.lenta.ru/images/2020/04/05/13/20200405131942365/pic_b6541cda9a9f9d0d58eb969be42b9063.jpg" type="image/jpeg" length="48018"/>
+            <category>Мир</category>
+        </item>
+        <item>
+            <guid>https://lenta.ru/news/2020/04/05/minoboron/</guid>
+            <title>Военкоматы России переведены на удаленную работу из-за коронавируса</title>
+            <link>https://lenta.ru/news/2020/04/05/minoboron/</link>
+            <description>
+                Министерство обороны России перевело военкоматы на удаленную работу из-за коронавируса. Все сотрудники военных комиссариатов переведены на удаленный режим работы. Уточнение всей необходимой информации проводится по телефону, чтобы исключить личное посещение военкоматов. >
+            </description>
+            <pubDate>Sun, 05 Apr 2020 13:42:00 +0300</pubDate>
+            <enclosure url="https://icdn.lenta.ru/images/2020/04/05/13/20200405134817678/pic_bc245ae40da3b60a4a0e4d526119c862.jpg" type="image/jpeg" length="63985"/>
+            <category>Россия</category>
+        </item>
+    </channel>
+</rss>
