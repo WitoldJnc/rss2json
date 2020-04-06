@@ -6,15 +6,18 @@ public class Feed {
     private String description;
     private String link;
     private Image image;
+    private String lastBuildDate;
 
     public Feed() {
     }
 
-    public Feed(String language, String title, String description, String link) {
+    public Feed(String language, String title, String description, String link,
+                String lastBuildDate) {
         this.language = language;
         this.title = title;
         this.description = description;
         this.link = link;
+        this.lastBuildDate = lastBuildDate;
     }
 
     public String getLanguage() {
@@ -55,5 +58,13 @@ public class Feed {
 
     public void setImage(Image image) {
         this.image = image;
+    }
+
+    public String getLastBuildDate() {
+        return lastBuildDate;
+    }
+
+    public void setLastBuildDate(String lastBuildDate) {
+        this.lastBuildDate = lastBuildDate;
     }
 }

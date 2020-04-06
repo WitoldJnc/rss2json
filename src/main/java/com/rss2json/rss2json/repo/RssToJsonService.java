@@ -6,5 +6,5 @@ import javax.xml.xpath.XPathExpressionException;
 
 public interface RssToJsonService {
 
-    Rss xmlToJson(String xml) throws XPathExpressionException;
+    Rss getFeedByUrl(String url) throws XPathExpressionException;
 }
