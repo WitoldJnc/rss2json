@@ -1,7 +1,6 @@
 package com.rss2json.rss2json.impl;
 
 import com.rss2json.rss2json.repo.UrlValidatorService;
-import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 
 import java.net.HttpURLConnection;
@@ -15,7 +14,7 @@ public class UrlValodatorServiceImpl implements UrlValidatorService {
         try {
             URL curUrl = new URL(url);
             HttpURLConnection con = (HttpURLConnection) curUrl.openConnection();
-            return con.getResponseMessage().equals(HttpStatus.OK.name());
+            return con.getResponseCode() < 400;
         } catch (Exception e) {
             return false;
         }
