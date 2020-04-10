@@ -1,0 +1,16 @@
+language: java
+jdk:
+  - oraclejdk-ea
+
+install:
+  - true
+script:
+  - "mvn clean install"
+
+
+cache:
+  directories:
+    - $HOME/.m2
+
+after_success:
+  - bash <(curl -s https://codecov.io/bash)
