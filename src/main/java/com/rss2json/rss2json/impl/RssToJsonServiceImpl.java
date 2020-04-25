@@ -27,10 +27,14 @@ public class RssToJsonServiceImpl implements RssToJsonService {
 
     @Override
     public ResponseEntity<Rss> getRssAsPojo(String url) {
-        RestTemplate restTemplate = new RestTemplate();
-        ResponseEntity<String> forEntity = restTemplate.getForEntity(url, String.class);
-        if (isRssFeed(forEntity.getBody())) {
-            return convertXml(forEntity.getBody());
+        if (validatorService.isValid(url)) {
+            RestTemplate restTemplate = new RestTemplate();
+            ResponseEntity<String> forEntity = restTemplate.getForEntity(url, String.class);
+            if (isRssFeed(forEntity.getBody())) {
+                return convertXml(forEntity.getBody());
+            } else {
+                return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+            }
         } else {
             return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
         }
@@ -51,12 +55,12 @@ public class RssToJsonServiceImpl implements RssToJsonService {
             String feedLang = xpath.evaluate("//feed/language", doc);
             String feedTitle = xpath.evaluate("//feed/title", doc);
             String feedDescription = xpath.evaluate("//feed/description", doc);
-            String feedLink = xpath.evaluate("//feed/link", doc);
+            String feedLink = xpath.evaluate("//feed/linkurl", doc);
             String lasBuild = xpath.evaluate("//feed/lastBuildDate", doc);
 
             String feedImageUrl = xpath.evaluate("//feed/image/url", doc);
             String feedImageTitle = xpath.evaluate("//feed/image/title", doc);
-            String feedImageLink = xpath.evaluate("//feed/image/link", doc);
+            String feedImageLink = xpath.evaluate("//feed/image/linkUrl", doc);
             String feedImageWidth = xpath.evaluate("//feed/image/width", doc);
             String feedImageHeight = xpath.evaluate("//feed/image/height", doc);
 
@@ -106,9 +110,9 @@ public class RssToJsonServiceImpl implements RssToJsonService {
 
                 item.setGuid(xpath.evaluate(String.format("//items/item[%s]/guid", 1), doc));
                 item.setTitle(xpath.evaluate(String.format("//items/item[%s]/title", i), doc));
-                item.setLink(xpath.evaluate(String.format("//items/item[%s]/link", i), doc));
+                item.setLink(xpath.evaluate(String.format("//items/item[%s]/linkurl", i), doc));
                 item.setDescription(xpath.evaluate(String.format("//items/item[%s]/description", i), doc).trim());
-                item.setPubDate(xpath.evaluate(String.format("//items/item[%s]/pubDate", i), doc));
+                item.setPubDate(xpath.evaluate(String.format("//items/item[%s]/pubdate", i), doc));
                 items.add(item);
             }
             Channel channel = new Channel(feed, items);
@@ -122,10 +126,14 @@ public class RssToJsonServiceImpl implements RssToJsonService {
     @Override
     public String formattingXml(String xml) {
         xml = xml.replace("<![CDATA[", "");
-        xml = xml.replace("]]", "");
+        xml = xml.replace("]]>", "");
         xml = xml.replaceFirst("<channel>", "<channel>\n<feed>");
         xml = xml.replaceFirst("<item>", "</feed>\n<items>\n<item>");
         xml = xml.replaceFirst("</channel>", "</items></channel>");
+        xml = xml.replace("link", "linkurl");
+        xml = xml.replace("pubDate", "pubdate");
+        xml = xml.replace("nbsp", "");
+        xml = xml.replace("&", "");
 
         return xml;
     }
