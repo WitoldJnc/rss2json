@@ -19,7 +19,5 @@ public class RssController {
     @GetMapping("/url")
     public ResponseEntity<Rss> geByUrl(@RequestParam("url") String address) {
         return rssToJsonService.getRssAsPojo(address);
-
     }
-
 }

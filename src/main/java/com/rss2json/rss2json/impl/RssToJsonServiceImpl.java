@@ -3,6 +3,7 @@ package com.rss2json.rss2json.impl;
 import com.rss2json.rss2json.model.*;
 import com.rss2json.rss2json.repo.RssToJsonService;
 import com.rss2json.rss2json.repo.UrlValidatorService;
+import lombok.SneakyThrows;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -15,7 +16,11 @@ import javax.xml.xpath.XPath;
 import javax.xml.xpath.XPathConstants;
 import javax.xml.xpath.XPathExpressionException;
 import javax.xml.xpath.XPathFactory;
+import java.io.BufferedReader;
+import java.io.InputStreamReader;
 import java.io.StringReader;
+import java.net.URL;
+import java.net.URLConnection;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -25,13 +30,21 @@ public class RssToJsonServiceImpl implements RssToJsonService {
     @Autowired
     private UrlValidatorService validatorService;
 
+    @SneakyThrows
     @Override
     public ResponseEntity<Rss> getRssAsPojo(String url) {
         if (validatorService.isValid(url)) {
-            RestTemplate restTemplate = new RestTemplate();
-            ResponseEntity<String> forEntity = restTemplate.getForEntity(url, String.class);
-            if (isRssFeed(forEntity.getBody())) {
-                return convertXml(forEntity.getBody());
+            URL website = new URL(url);
+            URLConnection connection = website.openConnection();
+            BufferedReader in = new BufferedReader(new InputStreamReader(connection.getInputStream()));
+            StringBuilder response = new StringBuilder();
+            String inputLine;
+            while ((inputLine = in.readLine()) != null)
+                response.append(inputLine);
+            in.close();
+
+            if (isRssFeed(response.toString())) {
+                return convertXml(response.toString());
             } else {
                 return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
             }
@@ -142,4 +155,21 @@ public class RssToJsonServiceImpl implements RssToJsonService {
     public boolean isRssFeed(String body) {
         return body.contains("<channel");
     }
+
+//
+//    URL website = new URL(url);
+//    URLConnection connection = website.openConnection();
+//    BufferedReader in = new BufferedReader(
+//            new InputStreamReader(
+//                    connection.getInputStream()));
+//
+//    StringBuilder response = new StringBuilder();
+//    String inputLine;
+//
+//while ((inputLine = in.readLine()) != null)
+//            response.append(inputLine);
+//
+//in.close();
+//
+//response.toString()
 }
