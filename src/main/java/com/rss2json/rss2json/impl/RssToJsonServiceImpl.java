@@ -3,12 +3,10 @@ package com.rss2json.rss2json.impl;
 import com.rss2json.rss2json.model.*;
 import com.rss2json.rss2json.repo.RssToJsonService;
 import com.rss2json.rss2json.repo.UrlValidatorService;
-import lombok.SneakyThrows;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
-import org.springframework.web.client.RestTemplate;
 import org.w3c.dom.Document;
 import org.xml.sax.InputSource;
 
@@ -30,22 +28,25 @@ public class RssToJsonServiceImpl implements RssToJsonService {
     @Autowired
     private UrlValidatorService validatorService;
 
-    @SneakyThrows
     @Override
     public ResponseEntity<Rss> getRssAsPojo(String url) {
         if (validatorService.isValid(url)) {
-            URL website = new URL(url);
-            URLConnection connection = website.openConnection();
-            BufferedReader in = new BufferedReader(new InputStreamReader(connection.getInputStream()));
-            StringBuilder response = new StringBuilder();
-            String inputLine;
-            while ((inputLine = in.readLine()) != null)
-                response.append(inputLine);
-            in.close();
+            try {
+                URL website = new URL(url);
+                URLConnection connection = website.openConnection();
+                BufferedReader in = new BufferedReader(new InputStreamReader(connection.getInputStream()));
+                StringBuilder response = new StringBuilder();
+                String inputLine;
+                while ((inputLine = in.readLine()) != null)
+                    response.append(inputLine);
+                in.close();
 
-            if (isRssFeed(response.toString())) {
-                return convertXml(response.toString());
-            } else {
+                if (isRssFeed(response.toString())) {
+                    return convertXml(response.toString());
+                } else {
+                    return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+                }
+            } catch (Exception e) {
                 return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
             }
         } else {
@@ -156,20 +157,4 @@ public class RssToJsonServiceImpl implements RssToJsonService {
         return body.contains("<channel");
     }
 
-//
-//    URL website = new URL(url);
-//    URLConnection connection = website.openConnection();
-//    BufferedReader in = new BufferedReader(
-//            new InputStreamReader(
-//                    connection.getInputStream()));
-//
-//    StringBuilder response = new StringBuilder();
-//    String inputLine;
-//
-//while ((inputLine = in.readLine()) != null)
-//            response.append(inputLine);
-//
-//in.close();
-//
-//response.toString()
 }
