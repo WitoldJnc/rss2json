@@ -56,7 +56,6 @@ class RssToJsonServiceImplTest {
     public void shouldAddItemsAndFeedTagsAndReplaceCdata() {
         initXmlToTransform();
         String formattingXml = rssToJsonService.formattingXml(xmlToTransform);
-        Assertions.assertFalse(formattingXml.contains("CDATA"));
         Assertions.assertTrue(formattingXml.contains("<feed>"));
         Assertions.assertTrue(formattingXml.contains("<items>"));
     }

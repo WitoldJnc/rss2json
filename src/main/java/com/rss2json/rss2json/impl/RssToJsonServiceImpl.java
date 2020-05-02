@@ -139,15 +139,9 @@ public class RssToJsonServiceImpl implements RssToJsonService {
 
     @Override
     public String formattingXml(String xml) {
-        xml = xml.replace("<![CDATA[", "");
-        xml = xml.replace("]]>", "");
         xml = xml.replaceFirst("<channel>", "<channel>\n<feed>");
         xml = xml.replaceFirst("<item>", "</feed>\n<items>\n<item>");
         xml = xml.replaceFirst("</channel>", "</items></channel>");
-        xml = xml.replace("link", "linkurl");
-        xml = xml.replace("pubDate", "pubdate");
-        xml = xml.replace("nbsp", "");
-        xml = xml.replace("&", "");
 
         return xml;
     }
